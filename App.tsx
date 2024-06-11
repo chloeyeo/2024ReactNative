@@ -1,42 +1,27 @@
-import {Button, StyleSheet, Text, TextInput, View} from 'react-native';
-import React, {useState} from 'react';
+// rnfes + tab (react native snippets extension)
+import {StyleSheet, Text, View} from 'react-native';
+import React from 'react';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import {NavigationContainer} from '@react-navigation/native';
+import HomeScreen from './page/HomeScreen';
+import ProfileScreen from './page/ProfileScreen';
+
+const Stack = createNativeStackNavigator();
+
+// Stack.screen and Stack.navigator
+// to use a navigator, you need a NavigationContainer on the outside
 
 const App = () => {
-  const [text, setText] = useState('');
-  const handleChangeInput = (input: String) => {
-    setText(input);
-    console.log(input);
-  };
   return (
-    <View style={styles.container}>
-      <Text style={styles.containerText}>App</Text>
-      <Text style={styles.containerText}>App</Text>
-      <Text style={styles.containerText}>App</Text>
-
-      <Button
-        title="test"
-        onPress={() => {
-          alert('test');
-        }}
-      />
-      <TextInput style={styles.input} onChangeText={handleChangeInput} />
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen name="Home" component={HomeScreen} />
+        <Stack.Screen name="Profile" component={ProfileScreen} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 };
 
 export default App;
-const styles = StyleSheet.create({
-  container: {
-    backgroundColor: 'yellow',
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: 10,
-  },
-  containerText: {
-    backgroundColor: 'pink',
-    padding: 20,
-    color: 'black',
-  },
-  input: {backgroundColor: 'white', width: 100},
-});
+
+const styles = StyleSheet.create({});
