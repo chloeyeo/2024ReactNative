@@ -10,12 +10,32 @@ const Stack = createNativeStackNavigator();
 
 // Stack.screen and Stack.navigator
 // to use a navigator, you need a NavigationContainer on the outside
+// press 'r' twice on phone screen to refresh
 
 const App = () => {
   return (
     <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="Home" component={HomeScreen} />
+      {/* <Stack.Navigator>
+        <Stack.Screen
+          name="Home"
+          component={HomeScreen}
+          options={{title: 'My Home', headerTitleAlign: 'center'}}
+        /> */}
+      <Stack.Navigator
+        screenOptions={{
+          headerTitleAlign: 'center',
+          headerStyle: {backgroundColor: 'pink'},
+          headerTitleStyle: {
+            fontSize: 22,
+            fontWeight: 'bold',
+            color: 'brown',
+          },
+        }}>
+        <Stack.Screen
+          name="Home"
+          component={HomeScreen}
+          //options={{title: 'My Home', headerTitleAlign: 'left'}}
+        />
         <Stack.Screen name="Profile" component={ProfileScreen} />
       </Stack.Navigator>
     </NavigationContainer>
