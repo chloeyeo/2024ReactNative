@@ -1,12 +1,16 @@
 First Commit: <br /><br />
 ![image](https://github.com/chloeyeo/2024ReactNative/assets/73764849/0ba92e02-68fc-4c4d-94a0-1f9b5c9ca46c)
 
-
+<br />
 
 Second Commit: <br /><br />
-https://github.com/chloeyeo/2024ReactNative/assets/73764849/5ab10723-6877-451e-b225-a39f00e4166c
 
 
+
+https://github.com/chloeyeo/2024ReactNative/assets/73764849/d357c7a1-3bc6-421e-aa80-57a4ed1b1d09
+
+
+<br />
 
 
 
