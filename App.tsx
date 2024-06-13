@@ -1,4 +1,11 @@
-import {StyleSheet, Text, View, Button, ScrollView} from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  Button,
+  ScrollView,
+  TextInput,
+} from 'react-native';
 import React, {useState} from 'react';
 import Header from './page/components/Header';
 import Generator from './page/components/Generator';
@@ -21,6 +28,9 @@ const App = () => {
     });
     setRandom(newArr);
   };
+  const onChangeText = text => {
+    console.log(text);
+  };
   return (
     <View style={styles.container}>
       <Header title={mainTitle} onPressView={pressView} />
@@ -29,6 +39,15 @@ const App = () => {
         <Button title="btn2" />
       </View>
       <Text>App</Text> */}
+
+      <View style={styles.inputWrap}>
+        <TextInput
+          style={styles.input}
+          multiline={true}
+          onChangeText={onChangeText}
+        />
+      </View>
+
       <Generator add={onAddRandom} />
       <ScrollView>
         <NumList data={random} onDelete={onDeleteNum} />
@@ -48,5 +67,16 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     paddingHorizontal: 20,
+  },
+  inputWrap: {
+    width: '100%',
+    paddingHorizontal: 16,
+    marginTop: 16,
+  },
+  input: {
+    width: '100%',
+    backgroundColor: '#efefef',
+    borderRadius: 10,
+    paddingHorizontal: 16,
   },
 });
