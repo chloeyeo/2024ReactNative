@@ -1,6 +1,18 @@
 First Commit: <br /><br />
 ![image](https://github.com/chloeyeo/2024ReactNative/assets/73764849/0ba92e02-68fc-4c4d-94a0-1f9b5c9ca46c)
-- Button component must have the 'title' prop
+
+<br />
+
+Second Commit: <br /><br />
+
+
+
+https://github.com/chloeyeo/2024ReactNative/assets/73764849/d357c7a1-3bc6-421e-aa80-57a4ed1b1d09
+
+
+<br />
+
+
 
 This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
 
