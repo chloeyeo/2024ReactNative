@@ -24,8 +24,17 @@ const App = () => {
     }
   };
   const deleteTask = (itemId: string) => {
-    setTodoList(todoList.filter(task => task.id != itemId));
+    setTodoList(todoList.filter(task => task.id !== itemId));
   };
+
+  const updateTask = (itemId: string, newText: string) => {
+    setTodoList(
+      todoList.map(item =>
+        item.id === itemId ? {...item, text: newText} : item,
+      ),
+    );
+  };
+
   const onCheck = (itemId: string) => {
     setTodoList(
       todoList.map(item =>
@@ -40,7 +49,17 @@ const App = () => {
         <Input onChangeText={onChangeText} todoText={todoText} />
         <Button title="add todo item" onPress={addTodoItem} />
         <ScrollView>
-          <Task data={todoList} onDelete={deleteTask} onCheck={onCheck} />
+          {[...todoList].reverse().map((item, idx) => {
+            return (
+              <Task
+                onDelete={deleteTask}
+                onCheck={onCheck}
+                key={`taskItem-${idx}`}
+                item={item}
+                onEdit={updateTask}
+              />
+            );
+          })}
         </ScrollView>
       </View>
     </View>
