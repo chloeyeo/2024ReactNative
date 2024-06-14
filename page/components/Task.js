@@ -72,5 +72,6 @@ const styles = StyleSheet.create({
     backgroundColor: 'skyblue',
     borderRadius: 10,
     paddingHorizontal: 16,
+    marginTop: 20,
   },
 });
