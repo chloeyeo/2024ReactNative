@@ -3,20 +3,23 @@ import React from 'react';
 import IconButton from '../../page/components/IconButton';
 import Icons from '../../page/components/Icons';
 
-const Task = ({data}) => {
+const Task = ({data, onDelete, onCheck}) => {
   return (
     <View style={{gap: 20, marginTop: 20}}>
-      {data.map((item, index) => {
+      {[...data].reverse().map((item, index) => {
         return (
           <View style={styles.container} key={`listItem-${index}`}>
-            {/* <IconButton icon={Icons.checked} onPress={() => alert('checked')} /> */}
             <IconButton
-              icon={Icons.notChecked}
-              onPress={() => alert('notChecked')}
+              icon={item.completed ? Icons.checked : Icons.notChecked}
+              onPress={() => onCheck(item.id)}
             />
             <Text style={{flex: 1, marginLeft: 10}}>{item.text}</Text>
-            <IconButton icon={Icons.edit} onPress={() => alert('edit')} />
-            <IconButton icon={Icons.delete} onPress={() => alert('delete')} />
+            {/* only when item.completed is false then edit icon button appears */}
+            {item.completed || (
+              <IconButton icon={Icons.edit} onPress={() => alert('edit')} />
+            )}
+
+            <IconButton icon={Icons.delete} onPress={() => onDelete(item.id)} />
           </View>
         );
       })}

@@ -10,27 +10,37 @@ const App = () => {
     {id: '3', text: 'docker', completed: false},
   ];
   const [todoList, setTodoList] = useState(initialList);
+  const [todoText, setTodoText] = useState('');
 
-  const onChangeText = (text: String) => {
-    // console.log(text);
+  const onChangeText = (text: string) => {
+    setTodoText(text);
   };
   const addTodoItem = () => {
-    alert('add');
+    if (todoText.trim()) {
+      const ID = Date.now().toString();
+      const newTaskObject = {id: ID, text: todoText, completed: false};
+      setTodoList([...todoList, newTaskObject]);
+      setTodoText('');
+    }
+  };
+  const deleteTask = (itemId: string) => {
+    setTodoList(todoList.filter(task => task.id != itemId));
+  };
+  const onCheck = (itemId: string) => {
+    setTodoList(
+      todoList.map(item =>
+        item.id === itemId ? {...item, completed: !item.completed} : item,
+      ),
+    );
   };
   return (
     <View>
       <Text style={styles.title}>TODO-LIST</Text>
       <View style={{paddingHorizontal: 16, marginTop: 10, gap: 10}}>
-        <Input onChangeText={onChangeText} />
+        <Input onChangeText={onChangeText} todoText={todoText} />
         <Button title="add todo item" onPress={addTodoItem} />
         <ScrollView>
-          <Task data={todoList} />
-          <Task data={todoList} />
-          <Task data={todoList} />
-          <Task data={todoList} />
-          <Task data={todoList} />
-          <Task data={todoList} />
-          <Task data={todoList} />
+          <Task data={todoList} onDelete={deleteTask} onCheck={onCheck} />
         </ScrollView>
       </View>
     </View>
