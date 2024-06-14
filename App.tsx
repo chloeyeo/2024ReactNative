@@ -1,57 +1,23 @@
-import {
-  StyleSheet,
-  Text,
-  View,
-  Button,
-  ScrollView,
-  TextInput,
-} from 'react-native';
-import React, {useState} from 'react';
-import Header from './page/components/Header';
-import Generator from './page/components/Generator';
-import NumList from './page/components/NumList';
+import {StyleSheet, Text, View} from 'react-native';
+import React from 'react';
+// import IconButton from './page/components/IconButton';
+// import Icons from './page/components/Icons';
+import Input from './page/components/Input';
 
 const App = () => {
-  const [mainTitle, setMainTitle] = useState('my world');
-  const [random, setRandom] = useState([100, 99]);
-  const pressView = () => {
-    alert('press');
-  };
-  const onAddRandom = () => {
-    const randomNum = Math.floor(Math.random() * 100) + 1; // 1 to 100 inclusive.
-    // console.log(Math.random()); // any number between 0 and 1, e.g. 0.322124..
-    setRandom([...random, randomNum]);
-  };
-  const onDeleteNum = (delIdx: number) => {
-    const newArr = random.filter((num, index) => {
-      return delIdx != index;
-    });
-    setRandom(newArr);
-  };
-  const onChangeText = text => {
+  const onChangeText = (text: String) => {
     console.log(text);
   };
   return (
-    <View style={styles.container}>
-      <Header title={mainTitle} onPressView={pressView} />
-      {/* <View style={styles.btnCon}>
-        <Button title="btn1" />
-        <Button title="btn2" />
+    <View>
+      <Text style={styles.title}>TODO-LIST</Text>
+      <View style={{paddingHorizontal: 16, marginTop: 10}}>
+        <Input onChangeText={onChangeText} />
       </View>
-      <Text>App</Text> */}
-
-      <View style={styles.inputWrap}>
-        <TextInput
-          style={styles.input}
-          multiline={true}
-          onChangeText={onChangeText}
-        />
-      </View>
-
-      <Generator add={onAddRandom} />
-      <ScrollView>
-        <NumList data={random} onDelete={onDeleteNum} />
-      </ScrollView>
+      {/* <IconButton icon={Icons.delete} onPress={() => alert('delete')} />
+      <IconButton icon={Icons.edit} onPress={() => alert('edit')} />
+      <IconButton icon={Icons.checked} onPress={() => alert('checked')} />
+      <IconButton icon={Icons.notChecked} onPress={() => alert('notChecked')} /> */}
     </View>
   );
 };
@@ -59,24 +25,13 @@ const App = () => {
 export default App;
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
+  title: {
+    paddingHorizontal: 16,
+    paddingVertical: 16,
     backgroundColor: 'skyblue',
-  },
-  btnCon: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    paddingHorizontal: 20,
-  },
-  inputWrap: {
-    width: '100%',
-    paddingHorizontal: 16,
-    marginTop: 16,
-  },
-  input: {
-    width: '100%',
-    backgroundColor: '#efefef',
-    borderRadius: 10,
-    paddingHorizontal: 16,
+    fontSize: 16,
+    textAlign: 'center',
+    color: 'white',
+    fontWeight: 'bold',
   },
 });
