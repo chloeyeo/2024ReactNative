@@ -7,7 +7,12 @@ const Input = ({onChangeText}) => {
   };
   return (
     <>
-      <TextInput style={styles.input} onChangeText={onChangeInput} />
+      <TextInput
+        style={styles.input}
+        onChangeText={onChangeInput}
+        maxLength={30}
+        autoCapitalize="none"
+      />
     </>
   );
 };

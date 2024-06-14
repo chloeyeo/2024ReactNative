@@ -1,23 +1,38 @@
-import {StyleSheet, Text, View} from 'react-native';
-import React from 'react';
-// import IconButton from './page/components/IconButton';
-// import Icons from './page/components/Icons';
+import {StyleSheet, Text, View, Button, ScrollView} from 'react-native';
+import React, {useState} from 'react';
 import Input from './page/components/Input';
+import Task from './page/components/Task';
 
 const App = () => {
+  const initialList = [
+    {id: '1', text: 'react native', completed: false},
+    {id: '2', text: 'mysql', completed: true},
+    {id: '3', text: 'docker', completed: false},
+  ];
+  const [todoList, setTodoList] = useState(initialList);
+
   const onChangeText = (text: String) => {
-    console.log(text);
+    // console.log(text);
+  };
+  const addTodoItem = () => {
+    alert('add');
   };
   return (
     <View>
       <Text style={styles.title}>TODO-LIST</Text>
-      <View style={{paddingHorizontal: 16, marginTop: 10}}>
+      <View style={{paddingHorizontal: 16, marginTop: 10, gap: 10}}>
         <Input onChangeText={onChangeText} />
+        <Button title="add todo item" onPress={addTodoItem} />
+        <ScrollView>
+          <Task data={todoList} />
+          <Task data={todoList} />
+          <Task data={todoList} />
+          <Task data={todoList} />
+          <Task data={todoList} />
+          <Task data={todoList} />
+          <Task data={todoList} />
+        </ScrollView>
       </View>
-      {/* <IconButton icon={Icons.delete} onPress={() => alert('delete')} />
-      <IconButton icon={Icons.edit} onPress={() => alert('edit')} />
-      <IconButton icon={Icons.checked} onPress={() => alert('checked')} />
-      <IconButton icon={Icons.notChecked} onPress={() => alert('notChecked')} /> */}
     </View>
   );
 };
