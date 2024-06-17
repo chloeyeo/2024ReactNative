@@ -6,7 +6,8 @@ https://github.com/chloeyeo/2024ReactNative/assets/73764849/098d9ca4-49ae-439f-8
 
 <br />
 First Commit: <br /><br />
-![image](https://github.com/chloeyeo/2024ReactNative/assets/73764849/5d77e1dc-d496-4282-8611-9d43ba0f9c31)
+![img1](https://github.com/chloeyeo/2024ReactNative/assets/73764849/1418da95-1499-4f91-b428-62f1e607f94b)
+
 
 <br />
 
