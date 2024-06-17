@@ -1,4 +1,4 @@
-Most recent commit: IMPLEMENTATION OF A TODO-LIST WITH CRUD FUNCTIONS IMPLEMENTED<br /><br />
+Most recent commit: Implementation of a Todo-List with the CRUD functions implemented <br /><br />
 
 
 https://github.com/chloeyeo/2024ReactNative/assets/73764849/098d9ca4-49ae-439f-86fd-9d845edab0d0
