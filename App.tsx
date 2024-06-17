@@ -2,6 +2,8 @@ import {StyleSheet, Text, View, Button, ScrollView} from 'react-native';
 import React, {useState} from 'react';
 import Input from './page/components/Input';
 import Task from './page/components/Task';
+import IconButton from './page/components/IconButton';
+import Icons from './page/components/Icons';
 
 // REACT-NATIVE IMPLEMENTATION OF A TODO-LIST WITH CRUD FUNCTIONS IMPLEMENTED
 // create,read,update,delete
@@ -13,7 +15,10 @@ const App = () => {
     {id: '3', text: 'docker', completed: false},
   ];
   const [todoList, setTodoList] = useState(initialList);
+  // const [sortedTodoList, setSortedTodoList] = useState(initialList);
   const [todoText, setTodoText] = useState('');
+  // const [clickedSort, setClickedSort] = useState(false);
+  const [sortModalOn, setSortModalOn] = useState(false);
 
   const onChangeText = (text: string) => {
     setTodoText(text);
@@ -45,12 +50,67 @@ const App = () => {
       ),
     );
   };
+
+  // const onSort = () => {
+  //   setClickedSort(!clickedSort);
+  //   let tempList = [...todoList];
+  //   if (clickedSort) {
+  //     tempList.sort((a, b) => a.text.localeCompare(b.text));
+  //     setSortedTodoList(tempList);
+  //   }
+  // };
+
   return (
     <View>
       <Text style={styles.title}>TODO-LIST</Text>
       <View style={{paddingHorizontal: 16, marginTop: 10, gap: 10}}>
         <Input onChangeText={onChangeText} todoText={todoText} />
         <Button title="add todo item" onPress={addTodoItem} />
+        <View style={{flexDirection: 'row'}}>
+          <IconButton
+            icon={Icons.sort}
+            onPress={() => setSortModalOn(!sortModalOn)}></IconButton>
+          {sortModalOn && (
+            <View style={{flexDirection: 'row'}}>
+              <IconButton
+                icon={Icons.sortByAlpha}
+                onPress={() => alert('sortByAlpha')}></IconButton>
+              <IconButton
+                icon={Icons.sortByRecency}
+                onPress={() => alert('sortByRecency')}></IconButton>
+            </View>
+          )}
+        </View>
+
+        {/* {sortedTodoList !== initialList ? (
+          <ScrollView>
+            {[...sortedTodoList].map((item, idx) => {
+              return (
+                <Task
+                  onDelete={deleteTask}
+                  onCheck={onCheck}
+                  key={`taskItem-${idx}`}
+                  item={item}
+                  onEdit={updateTask}
+                />
+              );
+            })}
+          </ScrollView>
+        ) : (
+          <ScrollView>
+            {[...todoList].reverse().map((item, idx) => {
+              return (
+                <Task
+                  onDelete={deleteTask}
+                  onCheck={onCheck}
+                  key={`taskItem-${idx}`}
+                  item={item}
+                  onEdit={updateTask}
+                />
+              );
+            })}
+          </ScrollView>
+        )} */}
         <ScrollView>
           {[...todoList].reverse().map((item, idx) => {
             return (
