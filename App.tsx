@@ -65,6 +65,7 @@ const App = () => {
       <Text style={styles.title}>TODO-LIST</Text>
       <View style={{paddingHorizontal: 16, marginTop: 10, gap: 10}}>
         <Input onChangeText={onChangeText} todoText={todoText} />
+        {/* Replace this with CustomButton */}
         <Button title="add todo item" onPress={addTodoItem} />
         <View style={{flexDirection: 'row'}}>
           <IconButton
