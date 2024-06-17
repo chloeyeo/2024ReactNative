@@ -3,6 +3,9 @@ import React, {useState} from 'react';
 import Input from './page/components/Input';
 import Task from './page/components/Task';
 
+// REACT-NATIVE IMPLEMENTATION OF A TODO-LIST WITH CRUD FUNCTIONS IMPLEMENTED
+// create,read,update,delete
+
 const App = () => {
   const initialList = [
     {id: '1', text: 'react native', completed: false},
