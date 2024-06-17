@@ -6,7 +6,7 @@ https://github.com/chloeyeo/2024ReactNative/assets/73764849/098d9ca4-49ae-439f-8
 
 <br />
 First Commit: <br /><br />
-[https://github.com/chloeyeo/2024ReactNative/assets/73764849/0ba92e02-68fc-4c4d-94a0-1f9b5c9ca46c](https://github-production-user-asset-6210df.s3.amazonaws.com/73764849/338125658-0ba92e02-68fc-4c4d-94a0-1f9b5c9ca46c.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVCODYLSA53PQK4ZA%2F20240617%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20240617T030820Z&X-Amz-Expires=300&X-Amz-Signature=ed49f29fa8033aa2a6a588b61a699307121aad5dd1a9cc16e0fdab6940fd049f&X-Amz-SignedHeaders=host&actor_id=73764849&key_id=0&repo_id=812977188)
+![image](https://github.com/chloeyeo/2024ReactNative/assets/73764849/5d77e1dc-d496-4282-8611-9d43ba0f9c31)
 
 <br />
 
