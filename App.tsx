@@ -1,145 +1,61 @@
 import {StyleSheet, Text, View, Button, ScrollView} from 'react-native';
-import React, {useState} from 'react';
-import Input from './page/components/Input';
-import Task from './page/components/Task';
-import IconButton from './page/components/IconButton';
-import Icons from './page/components/Icons';
+import React from 'react';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import {NavigationContainer} from '@react-navigation/native';
+import Home from './src/components/Home';
+import Search from './src/components/Search';
+import Profile from './src/components/Profile';
+import Activity from './src/components/Activity';
+import Status from './src/page/Status';
 
-// REACT-NATIVE IMPLEMENTATION OF A TODO-LIST WITH CRUD FUNCTIONS IMPLEMENTED
-// create,read,update,delete
+import Ionic from 'react-native-vector-icons/Ionicons';
+
+// Use Stack and Tab
+const Stack = createNativeStackNavigator();
+const Tab = createBottomTabNavigator();
 
 const App = () => {
-  const initialList = [
-    {id: '1', text: 'react native', completed: false},
-    {id: '2', text: 'mysql', completed: true},
-    {id: '3', text: 'docker', completed: false},
-  ];
-  const [todoList, setTodoList] = useState(initialList);
-  // const [sortedTodoList, setSortedTodoList] = useState(initialList);
-  const [todoText, setTodoText] = useState('');
-  // const [clickedSort, setClickedSort] = useState(false);
-  const [sortModalOn, setSortModalOn] = useState(false);
-
-  const onChangeText = (text: string) => {
-    setTodoText(text);
-  };
-  const addTodoItem = () => {
-    if (todoText.trim()) {
-      const ID = Date.now().toString();
-      const newTaskObject = {id: ID, text: todoText, completed: false};
-      setTodoList([...todoList, newTaskObject]);
-      setTodoText('');
-    }
-  };
-  const deleteTask = (itemId: string) => {
-    setTodoList(todoList.filter(task => task.id !== itemId));
-  };
-
-  const updateTask = (itemId: string, newText: string) => {
-    setTodoList(
-      todoList.map(item =>
-        item.id === itemId ? {...item, text: newText} : item,
-      ),
-    );
-  };
-
-  const onCheck = (itemId: string) => {
-    setTodoList(
-      todoList.map(item =>
-        item.id === itemId ? {...item, completed: !item.completed} : item,
-      ),
-    );
-  };
-
-  // const onSort = () => {
-  //   setClickedSort(!clickedSort);
-  //   let tempList = [...todoList];
-  //   if (clickedSort) {
-  //     tempList.sort((a, b) => a.text.localeCompare(b.text));
-  //     setSortedTodoList(tempList);
-  //   }
-  // };
-
   return (
-    <View>
-      <Text style={styles.title}>TODO-LIST</Text>
-      <View style={{paddingHorizontal: 16, marginTop: 10, gap: 10}}>
-        <Input onChangeText={onChangeText} todoText={todoText} />
-        {/* Replace this with CustomButton */}
-        <Button title="add todo item" onPress={addTodoItem} />
-        <View style={{flexDirection: 'row'}}>
-          <IconButton
-            icon={Icons.sort}
-            onPress={() => setSortModalOn(!sortModalOn)}></IconButton>
-          {sortModalOn && (
-            <View style={{flexDirection: 'row'}}>
-              <IconButton
-                icon={Icons.sortByAlpha}
-                onPress={() => alert('sortByAlpha')}></IconButton>
-              <IconButton
-                icon={Icons.sortByRecency}
-                onPress={() => alert('sortByRecency')}></IconButton>
-            </View>
-          )}
-        </View>
+    // NavigationContainer includes the safe zone which includes the notch = top row of phone screen
+    <NavigationContainer>
+      <Stack.Navigator screenOptions={{headerShown: false}}>
+        <Stack.Screen name="Bottom" component={ButtonTabScreen} />
+        <Stack.Screen name="Status" component={Status} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+};
 
-        {/* {sortedTodoList !== initialList ? (
-          <ScrollView>
-            {[...sortedTodoList].map((item, idx) => {
-              return (
-                <Task
-                  onDelete={deleteTask}
-                  onCheck={onCheck}
-                  key={`taskItem-${idx}`}
-                  item={item}
-                  onEdit={updateTask}
-                />
-              );
-            })}
-          </ScrollView>
-        ) : (
-          <ScrollView>
-            {[...todoList].reverse().map((item, idx) => {
-              return (
-                <Task
-                  onDelete={deleteTask}
-                  onCheck={onCheck}
-                  key={`taskItem-${idx}`}
-                  item={item}
-                  onEdit={updateTask}
-                />
-              );
-            })}
-          </ScrollView>
-        )} */}
-        <ScrollView>
-          {[...todoList].reverse().map((item, idx) => {
-            return (
-              <Task
-                onDelete={deleteTask}
-                onCheck={onCheck}
-                key={`taskItem-${idx}`}
-                item={item}
-                onEdit={updateTask}
-              />
-            );
-          })}
-        </ScrollView>
-      </View>
-    </View>
+const ButtonTabScreen = () => {
+  return (
+    <Tab.Navigator
+      screenOptions={({route}) => ({
+        headerShown: false,
+        tabBarShowLabel: false,
+        tabBarStyle: {height: 70},
+        tabBarIcon: ({focused, size, colour}) => {
+          let iconName;
+          if (route.name === 'Home') {
+            iconName = focused ? 'home-sharp' : 'home-outline';
+          } else if (route.name === 'Search') {
+            iconName = focused ? 'search-sharp' : 'search-outline';
+          } else if (route.name === 'Activity') {
+            iconName = focused ? 'heart' : 'heart-outline';
+          } else if (route.name === 'Profile') {
+            iconName = focused ? 'person-sharp' : 'person-outline';
+          }
+          return <Ionic name={iconName} size={size} color={colour} />;
+        },
+      })}>
+      <Tab.Screen name="Home" component={Home} />
+      <Tab.Screen name="Search" component={Search} />
+      <Tab.Screen name="Activity" component={Activity} />
+      <Tab.Screen name="Profile" component={Profile} />
+    </Tab.Navigator>
   );
 };
 
 export default App;
 
-const styles = StyleSheet.create({
-  title: {
-    paddingHorizontal: 16,
-    paddingVertical: 16,
-    backgroundColor: 'skyblue',
-    fontSize: 16,
-    textAlign: 'center',
-    color: 'white',
-    fontWeight: 'bold',
-  },
-});
+const styles = StyleSheet.create({});
