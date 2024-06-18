@@ -1,4 +1,5 @@
-![image](https://github.com/chloeyeo/2024ReactNativeTODO-LIST/assets/73764849/981f445a-5c85-4b5f-8b8e-ad4312e9c88e)
+![image](https://github.com/chloeyeo/2024ReactNativeTODO-LIST/assets/73764849/f3742b51-4b21-4976-8e88-d80d3f4ea0b5)
+
 
 
 
