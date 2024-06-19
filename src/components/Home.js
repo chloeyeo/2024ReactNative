@@ -25,7 +25,7 @@ const Home = () => {
           backgroundColor: 'white',
         }}>
         <View>
-          {/* fontSize from outer View does NOT get inherited to Text */}
+          {/* fontSize from outer View does  NOT get inherited to Text */}
           <Text style={{fontSize: 25, fontWeight: 700}}>Instagram</Text>
         </View>
         <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
