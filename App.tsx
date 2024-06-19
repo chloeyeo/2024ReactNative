@@ -5,13 +5,15 @@ import {
   Button,
   ScrollView,
   TouchableOpacity,
+  AppState,
+  Platform,
 } from 'react-native';
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import Input from './page/components/Input';
 import Task from './page/components/Task';
 import IconButton from './page/components/IconButton';
 import Icons from './page/components/Icons';
-import Material from 'react-native-vector-icons/MaterialCommunityIcons';
+import LoadingScreen from './src/components/LoadingScreen';
 
 // REACT-NATIVE IMPLEMENTATION OF A TODO-LIST WITH CRUD FUNCTIONS IMPLEMENTED
 // create,read,update,delete
@@ -29,6 +31,38 @@ const App = () => {
   const [sortMostRecent, setSortMostRecent] = useState(true);
   const [isSortingAlpha, setIsSortingAlpha] = useState(false);
   const [isSortingRecency, setIsSortingRecency] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const handleAppStateChange = nextAppState => {
+      if (nextAppState === 'active' && Platform.OS === 'android') {
+        setIsLoading(true);
+        // Simulate a loading process (e.g., fetching data or waiting for an API response)
+        setTimeout(() => {
+          setIsLoading(false);
+        }, 800); // Adjust the timeout as needed
+      }
+    };
+
+    const subscription = AppState.addEventListener(
+      'change',
+      handleAppStateChange,
+    );
+
+    // Initial load
+    setIsLoading(true);
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 800); // Adjust the timeout as needed
+
+    return () => {
+      subscription.remove();
+    };
+  }, []);
+
+  if (isLoading) {
+    return <LoadingScreen />;
+  }
 
   const onChangeText = (text: string) => {
     setTodoText(text);
