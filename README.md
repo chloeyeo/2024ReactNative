@@ -1,3 +1,7 @@
+Sort list in alphabetic order, reverse alphabetic order, most recent to least recent order, and least recent to most recent order:<br /><br />
+[todolist_sort.webm](https://github.com/chloeyeo/2024ReactNativeTODO-LIST/assets/73764849/dd86fdf5-adc3-4aca-aca6-3413f5a6e5ae)
+
+
 Custom 'add' button: <br /><br />
 ![image](https://github.com/chloeyeo/2024ReactNativeTODO-LIST/assets/73764849/fc888894-43b8-46fb-ac74-a45642c7af85)
 
