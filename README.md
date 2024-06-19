@@ -1,5 +1,5 @@
 Sort list in alphabetic order, reverse alphabetic order, most recent to least recent order, and least recent to most recent order:<br /><br />
-[todolist_sort.webm](https://github.com/chloeyeo/2024ReactNativeTODO-LIST/assets/73764849/dd86fdf5-adc3-4aca-aca6-3413f5a6e5ae)
+https://youtu.be/3L46C0riMOc
 
 
 Custom 'add' button: <br /><br />
