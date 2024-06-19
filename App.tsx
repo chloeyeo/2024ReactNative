@@ -27,6 +27,8 @@ const App = () => {
   const [sortModalOn, setSortModalOn] = useState(false);
   const [timeSortAlpha, setTimeSortAlpha] = useState(0);
   const [sortMostRecent, setSortMostRecent] = useState(true);
+  const [isSortingAlpha, setIsSortingAlpha] = useState(false);
+  const [isSortingRecency, setIsSortingRecency] = useState(true);
 
   const onChangeText = (text: string) => {
     setTodoText(text);
@@ -60,6 +62,8 @@ const App = () => {
   };
 
   const sortByAlpha = () => {
+    setIsSortingRecency(false);
+    setIsSortingAlpha(true);
     switch (timeSortAlpha) {
       case 0:
         alert('sort alphabetically a-z');
@@ -97,7 +101,6 @@ const App = () => {
           {/* Custom Button */}
           <AppButton title="Add" onPress={addTodoItem} />
         </View>
-
         <View style={{flexDirection: 'row', alignItems: 'center'}}>
           <IconButton
             icon={Icons.sort}
@@ -109,13 +112,16 @@ const App = () => {
 
               <IconButton
                 icon={Icons.sortByRecency}
-                onPress={() => setSortMostRecent(!sortMostRecent)}
+                onPress={() => {
+                  setIsSortingRecency(true);
+                  setIsSortingAlpha(false);
+                  setSortMostRecent(!sortMostRecent);
+                }}
               />
             </View>
           )}
         </View>
-
-        {sortMostRecent ? (
+        {isSortingRecency && sortMostRecent && (
           <ScrollView style={{height: '75%'}}>
             {[...todoList].reverse().map((item, idx) => {
               return (
@@ -129,7 +135,8 @@ const App = () => {
               );
             })}
           </ScrollView>
-        ) : (
+        )}
+        {isSortingRecency && !sortMostRecent && (
           <ScrollView style={{height: '75%'}}>
             {todoList.map((item, idx) => {
               return (
@@ -144,6 +151,21 @@ const App = () => {
             })}
           </ScrollView>
         )}
+        {/* {isSortingAlpha && !sortMostRecent && (
+          <ScrollView style={{height: '75%'}}>
+            {todoList.map((item, idx) => {
+              return (
+                <Task
+                  onDelete={deleteTask}
+                  onCheck={onCheck}
+                  key={`taskItem-${idx}`}
+                  item={item}
+                  onEdit={updateTask}
+                />
+              );
+            })}
+          </ScrollView>
+        )} */}
       </View>
     </View>
   );
