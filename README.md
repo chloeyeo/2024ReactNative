@@ -1,5 +1,3 @@
-
-https://github.com/chloeyeo/2024ReactNativeTODO-LIST/assets/73764849/e714b550-f72b-4457-b626-9f20e4073670
 Sort list in alphabetic order, reverse alphabetic order, most recent to least recent order, and least recent to most recent order:<br /><br />
 [https://youtu.be/3L46C0riMOc](https://www.youtube.com/watch?v=cSsKBtNtc_U) <br /><br />
 
