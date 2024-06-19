@@ -57,7 +57,13 @@ const Stories = () => {
             }>
             <View style={{padding: 8, position: 'relative'}}>
               {/* {story.id == 1?()} */}
-              <View style={{position: 'absolute'}}>
+              <View
+                style={{
+                  position: 'absolute',
+                  bottom: 15,
+                  right: 10,
+                  zindex: 1,
+                }}>
                 <Entypo
                   name="circle-with-plus"
                   style={{
