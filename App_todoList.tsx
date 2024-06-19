@@ -1,9 +1,17 @@
-import {StyleSheet, Text, View, Button, ScrollView} from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  Button,
+  ScrollView,
+  TouchableOpacity,
+} from 'react-native';
 import React, {useState} from 'react';
 import Input from './page/components/Input';
 import Task from './page/components/Task';
 import IconButton from './page/components/IconButton';
 import Icons from './page/components/Icons';
+import Material from 'react-native-vector-icons/MaterialCommunityIcons';
 
 // REACT-NATIVE IMPLEMENTATION OF A TODO-LIST WITH CRUD FUNCTIONS IMPLEMENTED
 // create,read,update,delete
@@ -15,10 +23,9 @@ const App = () => {
     {id: '3', text: 'docker', completed: false},
   ];
   const [todoList, setTodoList] = useState(initialList);
-  // const [sortedTodoList, setSortedTodoList] = useState(initialList);
   const [todoText, setTodoText] = useState('');
-  // const [clickedSort, setClickedSort] = useState(false);
   const [sortModalOn, setSortModalOn] = useState(false);
+  const [timeSortAlpha, setTimeSortAlpha] = useState(0);
 
   const onChangeText = (text: string) => {
     setTodoText(text);
@@ -51,67 +58,64 @@ const App = () => {
     );
   };
 
-  // const onSort = () => {
-  //   setClickedSort(!clickedSort);
-  //   let tempList = [...todoList];
-  //   if (clickedSort) {
-  //     tempList.sort((a, b) => a.text.localeCompare(b.text));
-  //     setSortedTodoList(tempList);
-  //   }
-  // };
+  const sortByAlpha = () => {
+    switch (timeSortAlpha) {
+      case 0:
+        alert('sort alphabetically a-z');
+        break;
+      case 1:
+        alert('sort alphabetically reverse z-a');
+        break;
+      default:
+        alert('show original list');
+    }
+    timeSortAlpha == 2
+      ? setTimeSortAlpha(0)
+      : setTimeSortAlpha(timeSortAlpha + 1);
+  };
+
+  const sortByRecency = () => {};
+
+  const AppButton = ({onPress, title}) => (
+    <TouchableOpacity onPress={onPress} style={styles.btnCont}>
+      <Text style={styles.btnText}>{title}</Text>
+    </TouchableOpacity>
+  );
 
   return (
     <View>
       <Text style={styles.title}>TODO-LIST</Text>
       <View style={{paddingHorizontal: 16, marginTop: 10, gap: 10}}>
-        <Input onChangeText={onChangeText} todoText={todoText} />
-        {/* Replace this with CustomButton */}
-        <Button title="add todo item" onPress={addTodoItem} />
-        <View style={{flexDirection: 'row'}}>
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'center',
+            alignItems: 'center',
+            gap: 12,
+            paddingHorizontal: 40,
+          }}>
+          <Input onChangeText={onChangeText} todoText={todoText} />
+          {/* Custom Button */}
+          <AppButton title="Add" onPress={addTodoItem} />
+        </View>
+
+        <View style={{flexDirection: 'row', alignItems: 'center'}}>
           <IconButton
             icon={Icons.sort}
-            onPress={() => setSortModalOn(!sortModalOn)}></IconButton>
+            onPress={() => setSortModalOn(!sortModalOn)}
+          />
           {sortModalOn && (
             <View style={{flexDirection: 'row'}}>
-              <IconButton
-                icon={Icons.sortByAlpha}
-                onPress={() => alert('sortByAlpha')}></IconButton>
+              <IconButton icon={Icons.sortByAlpha} onPress={sortByAlpha} />
+
               <IconButton
                 icon={Icons.sortByRecency}
-                onPress={() => alert('sortByRecency')}></IconButton>
+                onPress={() => alert('sortByRecency')}
+              />
             </View>
           )}
         </View>
 
-        {/* {sortedTodoList !== initialList ? (
-          <ScrollView>
-            {[...sortedTodoList].map((item, idx) => {
-              return (
-                <Task
-                  onDelete={deleteTask}
-                  onCheck={onCheck}
-                  key={`taskItem-${idx}`}
-                  item={item}
-                  onEdit={updateTask}
-                />
-              );
-            })}
-          </ScrollView>
-        ) : (
-          <ScrollView>
-            {[...todoList].reverse().map((item, idx) => {
-              return (
-                <Task
-                  onDelete={deleteTask}
-                  onCheck={onCheck}
-                  key={`taskItem-${idx}`}
-                  item={item}
-                  onEdit={updateTask}
-                />
-              );
-            })}
-          </ScrollView>
-        )} */}
         <ScrollView>
           {[...todoList].reverse().map((item, idx) => {
             return (
@@ -142,4 +146,6 @@ const styles = StyleSheet.create({
     color: 'white',
     fontWeight: 'bold',
   },
+  btnText: {color: 'white', fontWeight: 'bold'},
+  btnCont: {backgroundColor: 'skyblue', padding: 16, borderRadius: 10},
 });
