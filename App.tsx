@@ -64,16 +64,7 @@ const App = () => {
   const sortByAlpha = () => {
     setIsSortingRecency(false);
     setIsSortingAlpha(true);
-    switch (timeSortAlpha) {
-      case 0:
-        alert('sort alphabetically a-z');
-        break;
-      case 1:
-        alert('sort alphabetically reverse z-a');
-        break;
-      default:
-        alert('show original list');
-    }
+    setSortMostRecent(false);
     timeSortAlpha == 2
       ? setTimeSortAlpha(0)
       : setTimeSortAlpha(timeSortAlpha + 1);
@@ -115,6 +106,7 @@ const App = () => {
                 onPress={() => {
                   setIsSortingRecency(true);
                   setIsSortingAlpha(false);
+                  setTimeSortAlpha(0);
                   setSortMostRecent(!sortMostRecent);
                 }}
               />
@@ -136,7 +128,8 @@ const App = () => {
             })}
           </ScrollView>
         )}
-        {isSortingRecency && !sortMostRecent && (
+        {((isSortingRecency && !sortMostRecent) ||
+          (isSortingAlpha && timeSortAlpha == 0)) && (
           <ScrollView style={{height: '75%'}}>
             {todoList.map((item, idx) => {
               return (
@@ -151,21 +144,40 @@ const App = () => {
             })}
           </ScrollView>
         )}
-        {/* {isSortingAlpha && !sortMostRecent && (
+        {isSortingAlpha && timeSortAlpha == 1 && (
           <ScrollView style={{height: '75%'}}>
-            {todoList.map((item, idx) => {
-              return (
-                <Task
-                  onDelete={deleteTask}
-                  onCheck={onCheck}
-                  key={`taskItem-${idx}`}
-                  item={item}
-                  onEdit={updateTask}
-                />
-              );
-            })}
+            {[...todoList]
+              .sort((a, b) => a.text.localeCompare(b.text))
+              .map((item, idx) => {
+                return (
+                  <Task
+                    onDelete={deleteTask}
+                    onCheck={onCheck}
+                    key={`taskItem-${idx}`}
+                    item={item}
+                    onEdit={updateTask}
+                  />
+                );
+              })}
           </ScrollView>
-        )} */}
+        )}
+        {isSortingAlpha && timeSortAlpha == 2 && (
+          <ScrollView style={{height: '75%'}}>
+            {[...todoList]
+              .sort((a, b) => b.text.localeCompare(a.text))
+              .map((item, idx) => {
+                return (
+                  <Task
+                    onDelete={deleteTask}
+                    onCheck={onCheck}
+                    key={`taskItem-${idx}`}
+                    item={item}
+                    onEdit={updateTask}
+                  />
+                );
+              })}
+          </ScrollView>
+        )}
       </View>
     </View>
   );
