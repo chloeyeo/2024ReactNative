@@ -1,6 +1,7 @@
 Sort list in alphabetic order, reverse alphabetic order, most recent to least recent order, and least recent to most recent order:<br /><br />
-https://youtu.be/3L46C0riMOc <br /><br />
-[todolist_sort.webm](https://github.com/chloeyeo/2024ReactNativeTODO-LIST/assets/73764849/c09d2bd9-ad31-4a68-9695-1c405a11f631)
+[https://youtu.be/3L46C0riMOc](https://www.youtube.com/watch?v=cSsKBtNtc_U) <br /><br />
+
+[todolist.webm](https://github.com/chloeyeo/2024ReactNativeTODO-LIST/assets/73764849/1f5e12ce-8bce-4542-9576-1867e91859a0)
 
 
 
