@@ -47,7 +47,7 @@ const Stories = () => {
     },
   ];
   return (
-    <ScrollView horizontal={true} style={{paddingVertical: 20}}>
+    <ScrollView horizontal={true} style={{paddingVertical: 10}}>
       {storyInfo.map((story, idx) => {
         return (
           <TouchableOpacity
@@ -55,46 +55,50 @@ const Stories = () => {
             onPress={() =>
               navigation.push('Status', {name: story.name, image: story.image})
             }>
-            <View style={{padding: 8, position: 'relative'}}>
-              {/* {story.id == 1?()} */}
-              <View
-                style={{
-                  position: 'absolute',
-                  bottom: 15,
-                  right: 10,
-                  zindex: 1,
-                }}>
-                <Entypo
-                  name="circle-with-plus"
+            <View style={{position: 'relative'}}>
+              {story.id == 1 ? (
+                <View
                   style={{
-                    fontSize: 20,
-                    color: '#405de6',
+                    position: 'absolute',
+                    bottom: 10,
+                    right: 1,
+                    zindex: 1,
+                  }}>
+                  <Entypo
+                    name="circle-with-plus"
+                    style={{
+                      fontSize: 20,
+                      color: '#405de6',
+                      backgroundColor: 'white',
+                      borderRadius: 10,
+                      overflow: 'hidden',
+                    }}
+                  />
+                </View>
+              ) : null}
+
+              <View style={{padding: 8}}>
+                <View
+                  style={{
+                    width: 60,
+                    height: 60,
                     backgroundColor: 'white',
-                    borderRadius: 10,
-                    overflow: 'hidden',
-                  }}
-                />
-              </View>
-              <View
-                style={{
-                  width: 60,
-                  height: 60,
-                  backgroundColor: 'white',
-                  borderWidth: 1,
-                  borderColor: '#C13584',
-                  borderRadius: 180,
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                }}>
-                <Image
-                  source={story.image}
-                  style={{
-                    width: '90%',
-                    height: '90%',
-                    borderRadius: 100,
-                    resizeMode: 'cover',
-                  }}
-                />
+                    borderWidth: 1,
+                    borderColor: '#C13584',
+                    borderRadius: 180,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                  }}>
+                  <Image
+                    source={story.image}
+                    style={{
+                      width: '90%',
+                      height: '90%',
+                      borderRadius: 100,
+                      resizeMode: 'cover',
+                    }}
+                  />
+                </View>
               </View>
             </View>
           </TouchableOpacity>

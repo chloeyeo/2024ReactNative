@@ -5,13 +5,15 @@ import {
   Button,
   ScrollView,
   TouchableOpacity,
+  AppState,
+  Platform,
 } from 'react-native';
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import Input from './page/components/Input';
 import Task from './page/components/Task';
 import IconButton from './page/components/IconButton';
 import Icons from './page/components/Icons';
-import Material from 'react-native-vector-icons/MaterialCommunityIcons';
+import LoadingScreen from './src/components/LoadingScreen';
 
 // REACT-NATIVE IMPLEMENTATION OF A TODO-LIST WITH CRUD FUNCTIONS IMPLEMENTED
 // create,read,update,delete
@@ -26,6 +28,41 @@ const App = () => {
   const [todoText, setTodoText] = useState('');
   const [sortModalOn, setSortModalOn] = useState(false);
   const [timeSortAlpha, setTimeSortAlpha] = useState(0);
+  const [sortMostRecent, setSortMostRecent] = useState(true);
+  const [isSortingAlpha, setIsSortingAlpha] = useState(false);
+  const [isSortingRecency, setIsSortingRecency] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const handleAppStateChange = nextAppState => {
+      if (nextAppState === 'active' && Platform.OS === 'android') {
+        setIsLoading(true);
+        // Simulate a loading process (e.g., fetching data or waiting for an API response)
+        setTimeout(() => {
+          setIsLoading(false);
+        }, 800); // Adjust the timeout as needed
+      }
+    };
+
+    const subscription = AppState.addEventListener(
+      'change',
+      handleAppStateChange,
+    );
+
+    // Initial load
+    setIsLoading(true);
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 800); // Adjust the timeout as needed
+
+    return () => {
+      subscription.remove();
+    };
+  }, []);
+
+  if (isLoading) {
+    return <LoadingScreen />;
+  }
 
   const onChangeText = (text: string) => {
     setTodoText(text);
@@ -59,22 +96,13 @@ const App = () => {
   };
 
   const sortByAlpha = () => {
-    switch (timeSortAlpha) {
-      case 0:
-        alert('sort alphabetically a-z');
-        break;
-      case 1:
-        alert('sort alphabetically reverse z-a');
-        break;
-      default:
-        alert('show original list');
-    }
+    setIsSortingRecency(false);
+    setIsSortingAlpha(true);
+    setSortMostRecent(false);
     timeSortAlpha == 2
       ? setTimeSortAlpha(0)
       : setTimeSortAlpha(timeSortAlpha + 1);
   };
-
-  const sortByRecency = () => {};
 
   const AppButton = ({onPress, title}) => (
     <TouchableOpacity onPress={onPress} style={styles.btnCont}>
@@ -83,7 +111,7 @@ const App = () => {
   );
 
   return (
-    <View>
+    <View style={{height: '100%'}}>
       <Text style={styles.title}>TODO-LIST</Text>
       <View style={{paddingHorizontal: 16, marginTop: 10, gap: 10}}>
         <View
@@ -98,7 +126,6 @@ const App = () => {
           {/* Custom Button */}
           <AppButton title="Add" onPress={addTodoItem} />
         </View>
-
         <View style={{flexDirection: 'row', alignItems: 'center'}}>
           <IconButton
             icon={Icons.sort}
@@ -110,25 +137,81 @@ const App = () => {
 
               <IconButton
                 icon={Icons.sortByRecency}
-                onPress={() => alert('sortByRecency')}
+                onPress={() => {
+                  setIsSortingRecency(true);
+                  setIsSortingAlpha(false);
+                  setTimeSortAlpha(0);
+                  setSortMostRecent(!sortMostRecent);
+                }}
               />
             </View>
           )}
         </View>
-
-        <ScrollView>
-          {[...todoList].reverse().map((item, idx) => {
-            return (
-              <Task
-                onDelete={deleteTask}
-                onCheck={onCheck}
-                key={`taskItem-${idx}`}
-                item={item}
-                onEdit={updateTask}
-              />
-            );
-          })}
-        </ScrollView>
+        {isSortingRecency && sortMostRecent && (
+          <ScrollView style={{height: '75%'}}>
+            {[...todoList].reverse().map((item, idx) => {
+              return (
+                <Task
+                  onDelete={deleteTask}
+                  onCheck={onCheck}
+                  key={`taskItem-${idx}`}
+                  item={item}
+                  onEdit={updateTask}
+                />
+              );
+            })}
+          </ScrollView>
+        )}
+        {((isSortingRecency && !sortMostRecent) ||
+          (isSortingAlpha && timeSortAlpha == 0)) && (
+          <ScrollView style={{height: '75%'}}>
+            {todoList.map((item, idx) => {
+              return (
+                <Task
+                  onDelete={deleteTask}
+                  onCheck={onCheck}
+                  key={`taskItem-${idx}`}
+                  item={item}
+                  onEdit={updateTask}
+                />
+              );
+            })}
+          </ScrollView>
+        )}
+        {isSortingAlpha && timeSortAlpha == 1 && (
+          <ScrollView style={{height: '75%'}}>
+            {[...todoList]
+              .sort((a, b) => a.text.localeCompare(b.text))
+              .map((item, idx) => {
+                return (
+                  <Task
+                    onDelete={deleteTask}
+                    onCheck={onCheck}
+                    key={`taskItem-${idx}`}
+                    item={item}
+                    onEdit={updateTask}
+                  />
+                );
+              })}
+          </ScrollView>
+        )}
+        {isSortingAlpha && timeSortAlpha == 2 && (
+          <ScrollView style={{height: '75%'}}>
+            {[...todoList]
+              .sort((a, b) => b.text.localeCompare(a.text))
+              .map((item, idx) => {
+                return (
+                  <Task
+                    onDelete={deleteTask}
+                    onCheck={onCheck}
+                    key={`taskItem-${idx}`}
+                    item={item}
+                    onEdit={updateTask}
+                  />
+                );
+              })}
+          </ScrollView>
+        )}
       </View>
     </View>
   );
