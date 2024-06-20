@@ -60,9 +60,9 @@ const Stories = () => {
                 <View
                   style={{
                     position: 'absolute',
-                    bottom: 10,
+                    bottom: 15,
                     right: 1,
-                    zindex: 1,
+                    zIndex: 1,
                   }}>
                   <Entypo
                     name="circle-with-plus"
@@ -85,7 +85,7 @@ const Stories = () => {
                     backgroundColor: 'white',
                     borderWidth: 1,
                     borderColor: '#C13584',
-                    borderRadius: 180,
+                    borderRadius: 100,
                     justifyContent: 'center',
                     alignItems: 'center',
                   }}>
