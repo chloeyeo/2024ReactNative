@@ -6,8 +6,9 @@ import {
   Text,
   TouchableOpacity,
   View,
+  Animated,
 } from 'react-native';
-import React, {useEffect} from 'react';
+import React, {useEffect, useRef} from 'react';
 import Ionic from 'react-native-vector-icons/Ionicons';
 
 const Status = ({route, navigation}) => {
@@ -21,9 +22,43 @@ const Status = ({route, navigation}) => {
       clearTimeout(timer);
     };
   }, []);
+
+  // animate start
+  // useRef used for static, non changing values
+  const progress = useRef(new Animated.Value(0)).current; // the first value of progerss is the 'opacity' value.
+  useEffect(() => {
+    Animated.timing(progress, {
+      toValue: 5,
+      duration: 5000,
+      useNativeDriver: false,
+    }).start();
+  }, []);
+  const progressAnimation = progress.interpolate({
+    inputRange: [0, 5], // 0 to 5
+    outputRange: ['10%', '100%'], // 10% to 100%
+  });
+  // animate end
   return (
     <SafeAreaView style={{backgroundColor: 'black', height: '100%'}}>
       <StatusBar backgroundColor="black" barStyle="light-content" />
+      <View
+        style={{
+          height: 4,
+          width: '100%',
+          borderWidth: 1,
+          backgroundColor: 'gray',
+          position: 'absolute',
+          top: 0,
+          zindex: 1,
+        }}>
+        <Animated.View
+          style={{
+            backgroundColor: 'red',
+            width: progressAnimation,
+            height: '100%',
+          }}
+        />
+      </View>
       <View
         style={{
           backgroundColor: 'gray',

@@ -16,7 +16,7 @@ const Home = () => {
   return (
     <SafeAreaView>
       {/* statusbar must be used with safeareaview to change barstyle(light or dark) */}
-      <StatusBar backgroundColor="pink" barStyle="dark-content" />
+      <StatusBar backgroundColor="white" barStyle="dark-content" />
       {/* <View> is equivalent to a <div> tag */}
       <View
         style={{

@@ -1,11 +1,40 @@
-import {StyleSheet, Text, View} from 'react-native';
-import React from 'react';
+import {
+  Image,
+  SafeAreaView,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
+import React, {useState} from 'react';
+import SearchInput from '../page/SearchInput';
+import SearchContent from '../page/SearchContent';
 
 const Search = () => {
+  const [image, setImage] = useState(null);
+
+  const getData = data => {
+    setImage(data);
+  };
+
   return (
-    <View>
-      <Text>Search</Text>
-    </View>
+    <SafeAreaView>
+      <ScrollView>
+        <SearchInput />
+        <SearchContent getData={getData} />
+      </ScrollView>
+      {image ? (
+        <View
+          style={{
+            position: 'absolute',
+            width: 100,
+            height: 100,
+            backgroundColor: 'skyblue',
+          }}>
+          <Text>사진</Text>
+        </View>
+      ) : null}
+    </SafeAreaView>
   );
 };
 
